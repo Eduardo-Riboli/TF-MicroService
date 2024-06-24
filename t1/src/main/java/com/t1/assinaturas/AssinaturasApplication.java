@@ -16,7 +16,7 @@ public class AssinaturasApplication {
 	}
 
 	@GetMapping("/getStatus")
-	public HashMap<String, String> getStatus() {
+	public HashMap<String, String> getStatus(){
 		HashMap<String, String> status = new HashMap<>();
 		status.put("status", "running");
 		return status;
