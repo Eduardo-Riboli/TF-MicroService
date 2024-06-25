@@ -1,6 +1,6 @@
 services:
-  t1-projarc:
-    build: t1-projarc
+  t1:
+    build: t1
     image: t1
     ports:
       - "8081:8081"
