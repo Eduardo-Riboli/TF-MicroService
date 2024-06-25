@@ -1,6 +1,6 @@
 services:
   t1:
-    build: t1
+    build: t1-service
     image: t1
     ports:
       - "8081:8081"
@@ -12,9 +12,9 @@ services:
       - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka
   cache-service:
     build: cache-service
-    image: cache-service
+    image: cache
     ports:
-      - "8082:8082"
+      - "8000:8000"
     networks:
       - currency-network
     depends_on:

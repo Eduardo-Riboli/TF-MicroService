@@ -21,6 +21,6 @@ FROM eclipse-temurin:21-jre-alpine AS final
  #copiar os arquivos para execução no conteiner 
  COPY --from=build /workspace/app/target/*.jar /workspace/app/app.jar 
  #expor a porta utilizada na aplicação 
- EXPOSE 8082
+ EXPOSE 8000
  #executar o JAR 
  ENTRYPOINT ["java", "-jar", "/workspace/app/app.jar"]
