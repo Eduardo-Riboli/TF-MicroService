@@ -2,6 +2,8 @@ package com.t1.assinaturas.interfaceAdapter.controller;
 
 import java.util.List;
 
+import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +42,7 @@ public class SubscriptionController {
     @PostMapping("/assinaturas")
     public ResponseEntity<SubscriptionResponseDTO> createSubscription(
             @RequestBody SubscriptionRequestDTO subscriptionRequest) {
+
         return subscriptionUC.run(subscriptionRequest);
     }
 

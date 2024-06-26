@@ -1,5 +1,7 @@
 package com.t1.assinaturas.application.useCases;
 
+import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,7 @@ public class CreateSubscriptionUC {
                 subscription.getStartDate(),
                 subscription.getEndDate(),
                 subscription.getStatus() ? "ATIVA" : "CANCELADA");
+
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 }
