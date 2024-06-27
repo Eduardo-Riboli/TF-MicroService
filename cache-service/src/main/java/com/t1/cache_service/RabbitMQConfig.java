@@ -1,4 +1,4 @@
-package com.engsoft2.cache_service;
+package com.t1.cache_service;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

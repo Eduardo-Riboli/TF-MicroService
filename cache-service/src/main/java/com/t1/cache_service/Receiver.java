@@ -10,7 +10,7 @@ public class Receiver {
 
     private static Logger logger = LogManager.getLogger(Receiver.class);
 
-    @RabbitListener(queues = "#{RabbitMQConfig.getQueueName()}")
+    @RabbitListener(queues = "#{RabbitMQConfig.QUEUENAME}")
     public void receive(HistoryDTO dto) {
         logger.info("Mensagem recebida: {}", dto);
     }
