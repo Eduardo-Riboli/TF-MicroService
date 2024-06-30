@@ -6,5 +6,5 @@ import lombok.*;
 @Getter
 @Setter
 public class CacheService {
-    private Boolean active;
+    private String endDate;
 }

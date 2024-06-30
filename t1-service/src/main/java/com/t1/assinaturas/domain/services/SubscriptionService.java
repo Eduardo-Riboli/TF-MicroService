@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.t1.assinaturas.application.dto.SubscriptionRequestDTO;
+import com.t1.assinaturas.application.dto.SubscriptionResponseDTO;
 import com.t1.assinaturas.domain.entityModels.AppModel;
 import com.t1.assinaturas.domain.entityModels.ClientModel;
 import com.t1.assinaturas.domain.entityModels.SubscriptionModel;
@@ -82,6 +83,10 @@ public class SubscriptionService {
 
     public Boolean checkActiveSubscription(Long id) {
         return this.getSubscriptionById(id).map(SubscriptionModel::getStatus).orElse(false);
+    }
+
+    public String getSubscriptionEndDate(Long id) {
+        return this.getSubscriptionById(id).map(subscription -> subscription.getEndDate().toString()).orElse("");
     }
 
     @Transactional

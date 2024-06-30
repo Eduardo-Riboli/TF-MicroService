@@ -15,8 +15,12 @@ public class SubscriptionValidUC {
         this.subscriptionService = subscriptionService;
     }
 
-    public ResponseEntity<HashMap<String, String>> run(Long codass) {
-        HashMap<String, String> status = subscriptionService.checkActiveSubscription(codass);
+    public ResponseEntity<Boolean> run(Long codass) {
+        Boolean status = subscriptionService.checkActiveSubscription(codass);
         return ResponseEntity.status(200).body(status);
+    }
+
+    public String getEndDate(Long codass) {
+        return subscriptionService.getSubscriptionEndDate(codass);
     }
 }
