@@ -17,9 +17,9 @@ insert into APP (id, name, monthly_cost) values (5, 'X (Antigo Twitter)', 50.0);
 
 insert into SUBSCRIPTION (client_id, app_id, start_date, end_date, status) values (1, 1, '2021-01-01', '2024-07-23', 'true');
 insert into SUBSCRIPTION (client_id, app_id, start_date, end_date, status) values (1, 2, '2021-02-01', '2024-06-28', 'true');
-insert into SUBSCRIPTION (client_id, app_id, start_date, end_date, status) values (1, 3, '2021-03-01', '2024-06-09', 'true');
-insert into SUBSCRIPTION (client_id, app_id, start_date, end_date, status) values (1, 4, '2021-04-01', '2024-08-02', 'false');
+insert into SUBSCRIPTION (client_id, app_id, start_date, end_date, status) values (1, 3, '2021-03-01', '2024-06-09', 'false');
+insert into SUBSCRIPTION (client_id, app_id, start_date, end_date, status) values (1, 4, '2021-04-01', '2024-08-02', 'true');
 insert into SUBSCRIPTION (client_id, app_id, start_date, end_date, status) values (1, 5, '2021-05-01', '2024-10-04', 'true');
-insert into SUBSCRIPTION (client_id, app_id, start_date, end_date, status) values (2, 1, '2021-05-01', '2021-10-04', 'true');
+insert into SUBSCRIPTION (client_id, app_id, start_date, end_date, status) values (2, 1, '2021-05-01', '2021-10-04', 'false');
 insert into SUBSCRIPTION (client_id, app_id, start_date, end_date, status) values (2, 2, '2021-06-01', '2021-11-04', 'false');
 insert into SUBSCRIPTION (client_id, app_id, start_date, end_date, status) values (2, 3, '2021-07-01', '2021-12-04', 'false');

@@ -17,8 +17,6 @@ public class Receiver {
     public void receive(SubscriptionDTO dto) {
         logger.info("Mensagem recebida com a atualização da assinatura: {}", dto);
 
-        // colocar na cache.
-
         logger.info("Data do fim da assinatura guardada na cache.");
     }
 }
