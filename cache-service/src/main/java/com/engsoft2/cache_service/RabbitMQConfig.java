@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
     public static final String FANOUTEXCHANGENAME = "conversions.v1.conversion-request";
-    public static final String QUEUENAME = "conversions.v1.conversion-request.save-history";
+    public static final String QUEUENAME = "scaa.v1.subscription-update.save-signature" + Math.random() * 1000;;
 
     @Bean
     public FanoutExchange fanoutExchange() {
@@ -24,6 +24,10 @@ public class RabbitMQConfig {
     @Bean
     public Queue queue() {
         return new Queue(QUEUENAME);
+    }
+
+    public String getQueueName() {
+        return QUEUENAME;
     }
 
     @Bean
