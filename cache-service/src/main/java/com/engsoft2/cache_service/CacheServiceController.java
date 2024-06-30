@@ -38,8 +38,6 @@ public class CacheServiceController {
 	}
 
 	@GetMapping("/assinvalida/{codass}")
-	// public ResponseEntity<Boolean> checkActiveSubscription(@PathVariable long
-	// codass){
 	public ResponseEntity<Boolean> checkActiveSubscription(@PathVariable long codass) {
 		String value = map.get((int) codass);
 
@@ -47,24 +45,8 @@ public class CacheServiceController {
 			LocalDate date = LocalDate.parse(value);
 
 			if (date.equals(java.time.LocalDate.now()) || date.isAfter(java.time.LocalDate.now())) {
-				// DEBUG
-				// HashMap<String, String> response = new HashMap<>();
-				// response.put("value", value);
-				// response.put("equal or less", "sim");
-				// response.put("nao chamou url", "nao chamou");
-				// response.put("codass", Long.toString(codass));
-				// return ResponseEntity.status(200).body(response);
-
 				return ResponseEntity.status(200).body(true);
 			} else {
-				// DEBUG
-				// HashMap<String, String> response = new HashMap<>();
-				// response.put("value", value);
-				// response.put("equal or less", "nao");
-				// response.put("nao chamou url", "nao chamou");
-				// response.put("codass", Long.toString(codass));
-				// return ResponseEntity.status(200).body(response);
-
 				return ResponseEntity.status(200).body(false);
 			}
 		} else {
@@ -72,40 +54,14 @@ public class CacheServiceController {
 			String date = proxy.retrieveEndDate(Long.toString(codass));
 			String datePart = date.substring(0, 10);
 			LocalDate localDate = LocalDate.parse(datePart);
-			map.put((int)codass, datePart);
+			map.put((int) codass, datePart);
 
 			if (localDate.equals(java.time.LocalDate.now()) || localDate.isAfter(java.time.LocalDate.now())) {
-				// DEBUG
-				// HashMap<String, String> response = new HashMap<>();
-				// response.put("value", value);
-				// response.put("equal or less", "sim");
-				// response.put("nao chamou url", "nao chamou");
-				// response.put("codass", Long.toString(codass));
-				// return ResponseEntity.status(200).body(response);
-
 				return ResponseEntity.status(200).body(true);
 			} else {
-				// DEBUG
-				// HashMap<String, String> response = new HashMap<>();
-				// response.put("value", value);
-				// response.put("equal or less", "nao");
-				// response.put("nao chamou url", "nao chamou");
-				// response.put("codass", Long.toString(codass));
-				// return ResponseEntity.status(200).body(response);
-
 				return ResponseEntity.status(200).body(false);
 			}
-
-			// DEBUG
-			// HashMap<String, String> response = new HashMap<>();
-			// response.put("codass", Long.toString(codass));
-			// response.put("url t1-service", "chamou");
-			// response.put("proxy", cache.getEndDate());
-			// return ResponseEntity.status(404).body(response);
-
-			// return ResponseEntity.status(404).body(false);
 		}
-
 	}
 
 	@PostMapping("/eraseass/{codass}")
