@@ -62,4 +62,9 @@ public class SubscriptionController {
     public ResponseEntity<Boolean> checkActiveSubscription(@PathVariable long codass) {
         return subscriptionValidUC.run(codass);
     }
+
+    @GetMapping("/assdate/{codass}")
+    public ResponseEntity<String> checkSubscriptionDate(@PathVariable long codass) {
+        return subscriptionValidUC.getEndDate(codass);
+    }
 }

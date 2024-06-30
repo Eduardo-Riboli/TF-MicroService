@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name = "t1-service")
 public interface T1ServiceProxy {
-    @GetMapping("/servcad/assinvalida/{codass}")
-    public CacheService retrieveEndDate(@PathVariable String codass);
+    @GetMapping("/servcad/assdate/{codass}")
+    public String retrieveEndDate(@PathVariable String codass);
 }

@@ -20,7 +20,8 @@ public class SubscriptionValidUC {
         return ResponseEntity.status(200).body(status);
     }
 
-    public String getEndDate(Long codass) {
-        return subscriptionService.getSubscriptionEndDate(codass);
+    public ResponseEntity<String> getEndDate(Long codass) {
+        String date = subscriptionService.getSubscriptionEndDate(codass);
+        return ResponseEntity.status(200).body(date);
     }
 }
