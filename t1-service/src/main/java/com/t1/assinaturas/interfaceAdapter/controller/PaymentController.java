@@ -23,9 +23,16 @@ public class PaymentController {
     @Autowired
     private RegisterPaymentUC registerPaymentUC;
 
+    RabbitTemplate rabbitTemplate;
+    FanoutExchange fanout;
+
+    public PaymentController(RabbitTemplate rabbitTemplate, FanoutExchange fanout) {
+        this.rabbitTemplate = rabbitTemplate;
+        this.fanout = fanout;
+    }
+
     @PostMapping("")
-    public ResponseEntity<?> registerPayment(@RequestBody PaymentRequestDTO paymentRequest,
-            RabbitTemplate rabbitTemplate, FanoutExchange fanout) {
+    public ResponseEntity<?> registerPayment(@RequestBody PaymentRequestDTO paymentRequest) {
         return registerPaymentUC.run(paymentRequest, rabbitTemplate, fanout);
     }
 }

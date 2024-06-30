@@ -29,7 +29,7 @@ services:
     build: cache-service
     image: cache
     ports:
-      - "8000:8000"
+      - "8000"
     networks:
       - currency-network
     depends_on:

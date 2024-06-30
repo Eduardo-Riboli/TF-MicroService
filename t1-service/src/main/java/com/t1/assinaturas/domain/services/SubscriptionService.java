@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.t1.assinaturas.application.dto.SubscriptionRequestDTO;
-import com.t1.assinaturas.application.dto.SubscriptionResponseDTO;
 import com.t1.assinaturas.domain.entityModels.AppModel;
 import com.t1.assinaturas.domain.entityModels.ClientModel;
 import com.t1.assinaturas.domain.entityModels.SubscriptionModel;

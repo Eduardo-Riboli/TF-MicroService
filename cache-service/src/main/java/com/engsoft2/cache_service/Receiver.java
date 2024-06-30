@@ -13,9 +13,14 @@ public class Receiver {
     @Autowired
     private RabbitMQConfig rabbitMQConfig;
 
+    @Autowired
+    CacheServiceController cacheServiceController;
+
     @RabbitListener(queues = "#{rabbitMQConfig.getQueueName()}")
     public void receive(SubscriptionDTO dto) {
         logger.info("Mensagem recebida com a atualização da assinatura: {}", dto);
+
+        cacheServiceController.eraseSubscriptionInformation(dto.getIdSubscription());
 
         logger.info("Data do fim da assinatura guardada na cache.");
     }

@@ -47,13 +47,13 @@ public class RegisterPaymentUC {
         PaymentResponseDTO paymentResponse = paymentService.registerPayment(date, codass, valorPago);
 
         if ("VALOR_INCORRETO".equals(paymentResponse.getStatus())) {
-
-            SubscriptionDTO dto = new SubscriptionDTO(codass, date);
-            this.rabbitTemplate.convertAndSend(this.fanout.getName(), "", dto);
-
             return ResponseEntity.badRequest().body(paymentResponse);
 
         } else if ("PAGAMENTO_OK".equals(paymentResponse.getStatus())) {
+
+            SubscriptionDTO dto = new SubscriptionDTO(codass, paymentResponse.getDate());
+            this.rabbitTemplate.convertAndSend(this.fanout.getName(), "", dto);
+
             return ResponseEntity.ok(paymentResponse);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"status\": " + paymentResponse + "}");

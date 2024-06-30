@@ -8,11 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/servcad")
 public class CacheServiceController {
+
+	private static Logger logger = LogManager.getLogger(Receiver.class);
 
 	T1ServiceProxy proxy;
 	HashMap<Integer, String> map = new HashMap<>();
@@ -66,7 +70,9 @@ public class CacheServiceController {
 
 	@PostMapping("/eraseass/{codass}")
 	public ResponseEntity<Boolean> eraseSubscriptionInformation(@PathVariable long codass) {
-		map.remove(codass);
+		map.remove((int) codass);
+
+		logger.info(codass + " removido");
 
 		return ResponseEntity.status(200).body(true);
 	}
