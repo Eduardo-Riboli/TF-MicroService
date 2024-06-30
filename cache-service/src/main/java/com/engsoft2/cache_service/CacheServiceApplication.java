@@ -1,5 +1,6 @@
 package com.engsoft2.cache_service;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 
 import org.springframework.boot.SpringApplication;
@@ -14,18 +15,29 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class CacheServiceApplication {
 
-	HashMap<Integer, Boolean> map = new HashMap<>();
+	HashMap<Integer, String> map = new HashMap<>();
 
 	@GetMapping("/assinvalida/{codass}")
 	public ResponseEntity<Boolean> checkActiveSubscription(@PathVariable long codass){
-		Boolean value = map.get(codass);
+		String value = map.get((int)codass);
 
-		if (value) {
-			return ResponseEntity.status(200).body(value);
+		if (value != null) {
+			LocalDate date = LocalDate.parse(value);
+
+			if (date.equals(java.time.LocalDate.now()) || date.isAfter(java.time.LocalDate.now())) {
+				return ResponseEntity.status(200).body(true);
+			} else {
+				return ResponseEntity.status(200).body(false);
+			}
 		} else {
-			// CHAMA O T1-SERVICE
-			return ResponseEntity.status(200).body(value);
+			// CHAMAR O T1-service
+
+			HashMap<String, String> response = new HashMap<>();
+			response.put("error", "404");
+			response.put("message", "Could not find Subscription ID.");
+			return ResponseEntity.status(404).body(response);
 		}
+		
 	}
 
 	@PostMapping("/eraseass/{codass}")
@@ -41,7 +53,11 @@ public class CacheServiceApplication {
 
 	@GetMapping("/getStatus")
 	public HashMap<String, String> getStatus(){
+		map.put(1, "2024-07-30");
+		map.put(2, "2024-06-30");
+		map.put(3, "2024-05-30");
 		HashMap<String, String> status = new HashMap<>();
+		status.put("name", "cache-service");
 		status.put("status", "running");
 		return status;
 	}
