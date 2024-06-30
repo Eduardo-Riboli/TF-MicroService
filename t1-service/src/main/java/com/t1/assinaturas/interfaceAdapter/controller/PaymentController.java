@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.t1.assinaturas.application.dto.PaymentRequestDTO;
 import com.t1.assinaturas.application.useCases.RegisterPaymentUC;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.core.FanoutExchange;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -20,8 +23,14 @@ public class PaymentController {
     @Autowired
     private RegisterPaymentUC registerPaymentUC;
 
+    private RabbitTemplate rabbitTemplate;
+    private FanoutExchange fanout;
+
     @PostMapping("")
-    public ResponseEntity<?> registerPayment(@RequestBody PaymentRequestDTO paymentRequest) {
-        return registerPaymentUC.run(paymentRequest);
+    public ResponseEntity<?> registerPayment(@RequestBody PaymentRequestDTO paymentRequest,
+            RabbitTemplate rabbitTemplate, FanoutExchange fanout) {
+        this.rabbitTemplate = rabbitTemplate;
+        this.fanout = fanout;
+        return registerPaymentUC.run(paymentRequest, rabbitTemplate, fanout);
     }
 }

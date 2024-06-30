@@ -13,16 +13,27 @@ import com.t1.assinaturas.application.dto.PaymentRequestDTO;
 import com.t1.assinaturas.application.dto.PaymentResponseDTO;
 import com.t1.assinaturas.domain.services.PaymentService;
 
+import com.t1.assinaturas.SubscriptionDTO;
+
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.core.FanoutExchange;
+
 @Component
 public class RegisterPaymentUC {
     private PaymentService paymentService;
+    private RabbitTemplate rabbitTemplate;
+    private FanoutExchange fanout;
 
     @Autowired
-    public RegisterPaymentUC(PaymentService paymentService) {
+    public RegisterPaymentUC(PaymentService paymentService, RabbitTemplate rabbitTemplate,
+            FanoutExchange fanout) {
         this.paymentService = paymentService;
+        this.rabbitTemplate = rabbitTemplate;
+        this.fanout = fanout;
     }
 
-    public ResponseEntity<?> run(PaymentRequestDTO paymentRequest) {
+    public ResponseEntity<?> run(PaymentRequestDTO paymentRequest, RabbitTemplate rabbitTemplate,
+            FanoutExchange fanout) {
         int day = paymentRequest.getDay();
         int month = paymentRequest.getMonth() - 1;
         int year = paymentRequest.getYear();
@@ -36,7 +47,12 @@ public class RegisterPaymentUC {
         PaymentResponseDTO paymentResponse = paymentService.registerPayment(date, codass, valorPago);
 
         if ("VALOR_INCORRETO".equals(paymentResponse.getStatus())) {
+
+            SubscriptionDTO dto = new SubscriptionDTO(codass, date);
+            this.rabbitTemplate.convertAndSend(this.fanout.getName(), "", dto);
+
             return ResponseEntity.badRequest().body(paymentResponse);
+
         } else if ("PAGAMENTO_OK".equals(paymentResponse.getStatus())) {
             return ResponseEntity.ok(paymentResponse);
         } else {
