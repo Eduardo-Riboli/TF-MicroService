@@ -19,4 +19,9 @@ public class SubscriptionValidUC {
         Boolean status = subscriptionService.checkActiveSubscription(codass);
         return ResponseEntity.status(200).body(status);
     }
+
+    public ResponseEntity<String> getEndDate(Long codass) {
+        String date = subscriptionService.getSubscriptionEndDate(codass);
+        return ResponseEntity.status(200).body(date);
+    }
 }
